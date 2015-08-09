@@ -1,7 +1,7 @@
 /****************************************************************************
  * USB Loader GX resource files.
  * This file is generated automatically.
- * Includes 204 files.
+ * Includes 203 files.
  *
  * NOTE:
  * Any manual modification of this file will be overwriten by the generation.
@@ -617,9 +617,6 @@ extern const u32 app_booter_bin_size;
 extern const u8 custom_banner_bnr[];
 extern const u32 custom_banner_bnr_size;
 
-extern const u8 GLASS_bnr[];
-extern const u32 GLASS_bnr_size;
-
 extern const u8 stub_bin[];
 extern const u32 stub_bin_size;
 
@@ -827,7 +824,6 @@ RecourceFile Resources::RecourceFiles[] =
 	{"font.ttf", font_ttf, font_ttf_size, NULL, 0},
 	{"app_booter.bin", app_booter_bin, app_booter_bin_size, NULL, 0},
 	{"custom_banner.bnr", custom_banner_bnr, custom_banner_bnr_size, NULL, 0},
-	{"GLASS.bnr", GLASS_bnr, GLASS_bnr_size, NULL, 0},
 	{"stub.bin", stub_bin, stub_bin_size, NULL, 0},
 	{"listBackground.png", NULL, 0, NULL, 0},	// Optional
 	{"carouselBackground.png", NULL, 0, NULL, 0},	// Optional
