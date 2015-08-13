@@ -62,7 +62,7 @@ void CSettings::SetDefault()
 	snprintf(titlestxt_path, sizeof(titlestxt_path), "%stitles/", ConfigPath);
 	snprintf(languagefiles_path, sizeof(languagefiles_path), "%slanguage/", ConfigPath);
 	snprintf(update_path, sizeof(update_path), "%s/apps/usbloader_gx/", BootDevice);
-	snprintf(BNRCachePath, sizeof(BNRCachePath), "%s/apps/usbloader_gx/cache_icon/", BootDevice);
+	snprintf(BNRCachePath, sizeof(BNRCachePath), "%s/apps/usbloader_gx/cache_bnr/", BootDevice);
 	snprintf(homebrewapps_path, sizeof(homebrewapps_path), "%s/apps/", BootDevice);
 	snprintf(Cheatcodespath, sizeof(Cheatcodespath), "%s/codes/", BootDevice);
 	snprintf(TxtCheatcodespath, sizeof(TxtCheatcodespath), "%s/txtcodes/", BootDevice);
@@ -168,8 +168,8 @@ void CSettings::SetDefault()
 	BannerZoomDuration = 30; // frames
 	BannerProjectionOffsetX = (!widescreen || PAL50) ? 0.0f : 2.0f;
 	BannerProjectionOffsetY = PAL50 ? -1.0f : (NTSC ? 0.0f : -4.0f);
-	BannerProjectionWidth = (Settings.widescreen ? (Settings.PAL50 ? 608 : 608.0f) : 608.0f);
-	BannerProjectionHeight = (Settings.PAL50 ? 456.0f : (NTSC ? 456.0f : 456.0f));
+	BannerProjectionWidth = (Settings.widescreen ? (Settings.PAL50 ? 616 : 620.0f) : 608.0f);
+	BannerProjectionHeight = (Settings.PAL50 ? 448.0f : (NTSC ? 470.0f : 464.0f));
 	GCBannerScale = 1.5f;
 	GameCubeMode = GC_MODE_MIOS;
 	GameCubeSource = AUTO;
@@ -185,10 +185,11 @@ void CSettings::SetDefault()
 	DMLJPNPatch = OFF;
 	DMLDebug = OFF;
 	NINDeflicker = OFF;
+	NINPal50Patch = OFF;
 	NINWiiUWide = widescreen;
 	NINVideoScale = 40;
 	NINVideoOffset = 0;
-	NINRemlimit = ON;
+	NINRemlimit = OFF;
 	NINMCEmulation = ON;
 	NINMCSize = 2;
 	NINAutoboot = ON;
@@ -439,6 +440,7 @@ bool CSettings::Save()
 	fprintf(file, "DMLJPNPatch = %d\n", DMLJPNPatch);
 	fprintf(file, "DMLDebug = %d\n", DMLDebug);
 	fprintf(file, "NINDeflicker = %d\n", NINDeflicker);
+	fprintf(file, "NINPal50Patch = %d\n", NINPal50Patch);
 	fprintf(file, "NINWiiUWide = %d\n", NINWiiUWide);
 	fprintf(file, "NINVideoScale = %d\n", NINVideoScale);
 	fprintf(file, "NINVideoOffset = %d\n", NINVideoOffset);
@@ -931,6 +933,11 @@ bool CSettings::SetSetting(char *name, char *value)
 	else if (strcmp(name, "NINDeflicker") == 0)
 	{
 		NINDeflicker = atoi(value);
+		return true;
+	}
+	else if (strcmp(name, "NINPal50Patch") == 0)
+	{
+		NINPal50Patch = atoi(value);
 		return true;
 	}
 	else if (strcmp(name, "NINWiiUWide") == 0)
