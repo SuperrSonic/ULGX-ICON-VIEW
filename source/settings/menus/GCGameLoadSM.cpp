@@ -219,6 +219,7 @@ void GCGameLoadSM::SetOptionNames()
 		Options->SetName(Idx++, "%s", tr( "D Buttons" ));
 		Options->SetName(Idx++, "%s", tr( "Crop Overscan" ));
 		Options->SetName(Idx++, "%s", tr( "Disc Read Delay" ));
+		Options->SetName(Idx++, "%s", tr( "Force 480p" ));
 	}
 }
 
@@ -510,6 +511,12 @@ void GCGameLoadSM::SetOptionValues()
 			Options->SetValue(Idx++, tr("Use global"));
 		else
 			Options->SetValue(Idx++, "%s", tr(OnOffText[GameConfig.DEVODiscDelay]));
+
+		//! Settings: DEVO Force 480p
+		if(GameConfig.DEVOForce == INHERIT)
+			Options->SetValue(Idx++, tr("Use global"));
+		else
+			Options->SetValue(Idx++, "%s", tr(OnOffText[GameConfig.DEVOForce]));
 		
 	}
 }
@@ -866,6 +873,12 @@ int GCGameLoadSM::GetMenuInternal()
 	else if (currentGCmode == GC_MODE_DEVOLUTION && ret == ++Idx)
 	{
 		if (++GameConfig.DEVODiscDelay >= MAX_ON_OFF) GameConfig.DEVODiscDelay = INHERIT;
+	}
+
+	//!Settings: DEVO Disc Read Delay
+	else if (currentGCmode == GC_MODE_DEVOLUTION && ret == ++Idx)
+	{
+		if (++GameConfig.DEVOForce >= MAX_ON_OFF) GameConfig.DEVOForce = INHERIT;
 	}
 
 	SetOptionValues();

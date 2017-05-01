@@ -239,6 +239,7 @@ bool CGameSettings::Save()
 		fprintf(f, "DEVODButtons:%d; ", GameList[i].DEVODButtons);
 		fprintf(f, "DEVOCropOverscan:%d; ", GameList[i].DEVOCropOverscan);
 		fprintf(f, "DEVODiscDelay:%d; ", GameList[i].DEVODiscDelay);
+		fprintf(f, "DEVOForce:%d; ", GameList[i].DEVOForce);
 		fprintf(f, "PrivateServer:%d; ", GameList[i].PrivateServer);
 		fprintf(f, "Locked:%d;\n", GameList[i].Locked);
 	}
@@ -520,6 +521,11 @@ bool CGameSettings::SetSetting(GameCFG & game, const char *name, const char *val
 		game.DEVODiscDelay = atoi(value);
 		return true;
 	}
+	else if(strcmp(name, "DEVOForce") == 0)
+	{
+		game.DEVOForce = atoi(value);
+		return true;
+	}
 	else if(strcmp(name, "PrivateServer") == 0)
 	{
 		game.PrivateServer = atoi(value);
@@ -679,6 +685,7 @@ void CGameSettings::SetDefault(GameCFG &game)
 	game.DEVODButtons = INHERIT;
 	game.DEVOCropOverscan = INHERIT;
 	game.DEVODiscDelay = INHERIT;
+	game.DEVOForce = INHERIT;
 	game.PrivateServer = INHERIT;
 	game.Locked = OFF;
 }

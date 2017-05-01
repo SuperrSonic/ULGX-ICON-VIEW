@@ -63,6 +63,7 @@ typedef struct _GameCFG
 	short DEVODButtons;
 	short DEVOCropOverscan;
 	short DEVODiscDelay;
+	short DEVOForce;
 	short PrivateServer;
 	short Locked;
 
@@ -122,6 +123,7 @@ typedef struct _GameCFG
 		this->DEVODButtons = game.DEVODButtons;
 		this->DEVOCropOverscan = game.DEVOCropOverscan;
 		this->DEVODiscDelay = game.DEVODiscDelay;
+		this->DEVOForce = game.DEVOForce;
 		this->PrivateServer = game.PrivateServer;
 		this->Locked = game.Locked;
 	}

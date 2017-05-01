@@ -61,7 +61,7 @@ static const char * VideoModeText[] =
 	trNOOP( "Force NTSC" ),
 	trNOOP( "Region Patch" ),
 	trNOOP( "Force PAL480p" ),
-	trNOOP( "Force NTSC480p" ),
+	trNOOP( "Force NTSC240p" ),
 };
 
 static const char * VideoPatchDolText[] =
@@ -252,6 +252,7 @@ LoaderSettings::LoaderSettings()
 	Options->SetName(Idx++, "%s", tr( "D Buttons" ));
 	Options->SetName(Idx++, "%s", tr( "Crop Overscan" ));
 	Options->SetName(Idx++, "%s", tr( "Disc Read Delay" ));
+	Options->SetName(Idx++, "%s", tr( "Force 480p" ));
 
 	SetOptionValues();
 
@@ -487,6 +488,9 @@ void LoaderSettings::SetOptionValues()
 
 	//! Settings: DEVO Disc Read Delay
 	Options->SetValue(Idx++, "%s", tr(OnOffText[Settings.DEVODiscDelay]));
+
+	//! Settings: DEVO Force 480p
+	Options->SetValue(Idx++, "%s", tr(OnOffText[Settings.DEVOForce]));
 
 }
 
@@ -924,6 +928,12 @@ int LoaderSettings::GetMenuInternal()
 	else if (ret == ++Idx)
 	{
 		if (++Settings.DEVODiscDelay >= MAX_ON_OFF) Settings.DEVODiscDelay = 0;
+	}
+
+	//! Settings: DEVO Force 480p
+	else if (ret == ++Idx)
+	{
+		if (++Settings.DEVOForce >= MAX_ON_OFF) Settings.DEVOForce = 0;
 	}
 
 	SetOptionValues();

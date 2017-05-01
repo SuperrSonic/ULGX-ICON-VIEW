@@ -208,6 +208,7 @@ void CSettings::SetDefault()
 	DEVODButtons = OFF;
 	DEVOCropOverscan = OFF;
 	DEVODiscDelay = OFF;
+	DEVOForce = OFF;
 	GCInstallCompressed = OFF;
 	GCInstallAligned = OFF;
 	PrivateServer = OFF;
@@ -463,6 +464,7 @@ bool CSettings::Save()
 	fprintf(file, "DEVODButtons = %d\n", DEVODButtons);
 	fprintf(file, "DEVOCropOverscan = %d\n", DEVOCropOverscan);
 	fprintf(file, "DEVODiscDelay = %d\n", DEVODiscDelay);
+	fprintf(file, "DEVOForce = %d\n", DEVOForce);
 	fprintf(file, "DEVOLoaderPath = %s\n", DEVOLoaderPath);
 	fprintf(file, "NINLoaderPath = %s\n", NINLoaderPath);
 	fprintf(file, "GCInstallCompressed = %d\n", GCInstallCompressed);
@@ -1048,6 +1050,11 @@ bool CSettings::SetSetting(char *name, char *value)
 	else if (strcmp(name, "DEVODiscDelay") == 0)
 	{
 		DEVODiscDelay = atoi(value);
+		return true;
+	}
+	else if (strcmp(name, "DEVOForce") == 0)
+	{
+		DEVOForce = atoi(value);
 		return true;
 	}
 	else if (strcmp(name, "DEVOLoaderPath") == 0)

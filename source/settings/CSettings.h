@@ -212,6 +212,7 @@ class CSettings
 		short DEVODButtons;
 		short DEVOCropOverscan;
 		short DEVODiscDelay;
+		short DEVOForce;
 		short GCInstallCompressed;
 		short GCInstallAligned;
 		short PrivateServer;

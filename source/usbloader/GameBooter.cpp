@@ -727,6 +727,7 @@ int GameBooter::BootDevolution(struct discHdr *gameHdr)
 	u8 devoDButtonsChoice = game_cfg->DEVODButtons == INHERIT ? Settings.DEVODButtons : game_cfg->DEVODButtons;
 	u8 devoCropOverscanChoice = game_cfg->DEVOCropOverscan == INHERIT ? Settings.DEVOCropOverscan : game_cfg->DEVOCropOverscan;
 	u8 devoDiscDelayChoice = game_cfg->DEVODiscDelay == INHERIT ? Settings.DEVODiscDelay : game_cfg->DEVODiscDelay;
+	u8 devoForceChoice = game_cfg->DEVOForce == INHERIT ? Settings.DEVOForce : game_cfg->DEVOForce;
 
 	if(gameHdr->type == TYPE_GAME_GC_DISC)
 	{
@@ -853,6 +854,8 @@ int GameBooter::BootDevolution(struct discHdr *gameHdr)
 	if (devoDiscDelayChoice && DEVO_version >= 234)
 		devo_config->options |= DEVO_CFG_DISC_DELAY;
 	//	devo_config->options |= DEVO_CFG_PLAYLOG; 			// Playlog setting managed by USBLoaderGX features menu
+	if (devoForceChoice && DEVO_version >= 266)
+		devo_config->options |= DEVO_CFG_FORCE_480P;
 	
 	// check memory card
 	if(devoMCEmulation == DEVO_MC_OFF)
