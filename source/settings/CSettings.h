@@ -207,6 +207,7 @@ class CSettings
 		short DEVOMCEmulation;
 		short DEVOWidescreen;
 		short DEVOActivityLED;
+		short DEVOPlayLog;
 		short DEVOFZeroAX;
 		short DEVOTimerFix;
 		short DEVODButtons;

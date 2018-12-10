@@ -214,6 +214,7 @@ void GCGameLoadSM::SetOptionNames()
 		Options->SetName(Idx++, "%s", tr( "Memory Card Emulation" ));
 		Options->SetName(Idx++, "%s", tr( "Force Widescreen" ));
 		Options->SetName(Idx++, "%s", tr( "LED Activity" ));
+		Options->SetName(Idx++, "%s", tr( "Message Board" ));
 		Options->SetName(Idx++, "%s", tr( "F-Zero AX" ));
 		Options->SetName(Idx++, "%s", tr( "Timer Fix" ));
 		Options->SetName(Idx++, "%s", tr( "D Buttons" ));
@@ -481,6 +482,12 @@ void GCGameLoadSM::SetOptionValues()
 			Options->SetValue(Idx++, tr("Use global"));
 		else
 			Options->SetValue(Idx++, "%s", tr(OnOffText[GameConfig.DEVOActivityLED]));
+
+        //! Settings: DEVO Play Log
+		if(GameConfig.DEVOPlayLog == INHERIT)
+			Options->SetValue(Idx++, tr("Use global"));
+		else
+			Options->SetValue(Idx++, "%s", tr(OnOffText[GameConfig.DEVOPlayLog]));
 
 		//! Settings: DEVO F-Zero AX unlock patch
 		if(GameConfig.DEVOFZeroAX == INHERIT)
@@ -843,6 +850,12 @@ int GCGameLoadSM::GetMenuInternal()
 	else if (currentGCmode == GC_MODE_DEVOLUTION && ret == ++Idx)
 	{
 		if (++GameConfig.DEVOActivityLED >= MAX_ON_OFF) GameConfig.DEVOActivityLED = INHERIT;
+	}
+
+	//! Settings: DEVO Play Log
+	else if (currentGCmode == GC_MODE_DEVOLUTION && ret == ++Idx)
+	{
+		if (++GameConfig.DEVOPlayLog >= MAX_ON_OFF) GameConfig.DEVOPlayLog = INHERIT;
 	}
 
 	//! Settings: DEVO F-Zero AX unlock patch

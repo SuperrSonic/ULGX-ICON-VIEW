@@ -172,7 +172,7 @@ void Disc_SelectVMode(u8 videoselected, bool devolution, u32 *dml_VideoMode, u32
 			if(nin_VideoMode) *nin_VideoMode = NIN_VID_FORCE_PAL60 | NIN_VID_PROG;
 			break;
 		case VIDEO_MODE_NTSC480P:
-			rmode = &TVNtsc240Ds;
+			rmode = &TVNtsc480Prog;
 			rmode_reg = VI_NTSC;
 			if(dml_VideoMode) *dml_VideoMode = DML_VID_FORCE_PROG | DML_VID_PROG_PATCH;
 			if(nin_VideoMode) *nin_VideoMode = NIN_VID_FORCE_NTSC | NIN_VID_PROG;

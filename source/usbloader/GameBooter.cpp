@@ -721,6 +721,7 @@ int GameBooter::BootDevolution(struct discHdr *gameHdr)
 	s8 languageChoice = game_cfg->language == INHERIT ? Settings.language -1 : game_cfg->language;
 	u8 devoMCEmulation = game_cfg->DEVOMCEmulation == INHERIT ? Settings.DEVOMCEmulation : game_cfg->DEVOMCEmulation;
 	u8 devoActivityLEDChoice = game_cfg->DEVOActivityLED == INHERIT ? Settings.DEVOActivityLED : game_cfg->DEVOActivityLED;
+	u8 devoPlayLogChoice = game_cfg->DEVOPlayLog == INHERIT ? Settings.DEVOPlayLog : game_cfg->DEVOPlayLog;
 	u8 devoWidescreenChoice = game_cfg->DEVOWidescreen == INHERIT ? Settings.DEVOWidescreen : game_cfg->DEVOWidescreen;
 	u8 devoFZeroAXChoice = game_cfg->DEVOFZeroAX == INHERIT ? Settings.DEVOFZeroAX : game_cfg->DEVOFZeroAX;
 	u8 devoTimerFixChoice = game_cfg->DEVOTimerFix == INHERIT ? Settings.DEVOTimerFix : game_cfg->DEVOTimerFix;
@@ -853,8 +854,9 @@ int GameBooter::BootDevolution(struct discHdr *gameHdr)
 		devo_config->options |= DEVO_CFG_CROP_OVERSCAN;
 	if (devoDiscDelayChoice && DEVO_version >= 234)
 		devo_config->options |= DEVO_CFG_DISC_DELAY;
-	//	devo_config->options |= DEVO_CFG_PLAYLOG; 			// Playlog setting managed by USBLoaderGX features menu
-	if (devoForceChoice && DEVO_version >= 266)
+	if (devoPlayLogChoice && DEVO_version >= 234)
+		devo_config->options |= DEVO_CFG_PLAYLOG; 			// Playlog setting managed by USBLoaderGX features menu
+	if (devoForceChoice && DEVO_version >= 266)            // WRONGOMUNDO, ULGX does NOTHING!
 		devo_config->options |= DEVO_CFG_FORCE_480P;
 	
 	// check memory card
@@ -1191,13 +1193,13 @@ int GameBooter::BootNintendont(struct discHdr *gameHdr)
 	}
 	
 	
-	// Check Ocarina and cheat file location. the .gct file need to be located on the same partition than the game.
-	if(ocarinaChoice && strcmp(DeviceHandler::GetDevicePrefix(RealPath), DeviceHandler::GetDevicePrefix(Settings.Cheatcodespath)) != 0)
+	// Check Ocarina and cheat file location. The .gct file needs to be located on the same partition as the game.
+	/*if(ocarinaChoice && strcmp(DeviceHandler::GetDevicePrefix(RealPath), DeviceHandler::GetDevicePrefix(Settings.Cheatcodespath)) != 0)
 	{
 		char path[255], destPath[255];
 		int res = -1;
 		snprintf(path, sizeof(path), "%s%.6s.gct", Settings.Cheatcodespath, (char *)gameHdr->id);
-		snprintf(destPath, sizeof(destPath), "%s:/NINTemp.gct", DeviceHandler::GetDevicePrefix(RealPath));
+		snprintf(destPath, sizeof(destPath), "%s:/apps/NINTemp.gct", DeviceHandler::GetDevicePrefix(RealPath));
 		
 		gprintf("NIN: Copying %s to %s \n", path, destPath);
 		res = CopyFile(path, destPath);
@@ -1207,7 +1209,7 @@ int GameBooter::BootNintendont(struct discHdr *gameHdr)
 			RemoveFile(destPath);
 			ocarinaChoice = false;
 		}
-	}
+	}*/
 
 	// Check kenobiwii.bin
 	if(NINRev < 336 && (ocarinaChoice || (ninDebugChoice && !isWiiU())))
@@ -1365,7 +1367,7 @@ int GameBooter::BootNintendont(struct discHdr *gameHdr)
 	// setup cheat and path
 	if(ocarinaChoice)
 	{
-		// Check if the .gct folder is on the same partition than the game, if not load the temporary .gct file.
+		// Check if the .gct folder is on the same partition of the game, if not load the temporary .gct file.
 		if(strcmp(DeviceHandler::GetDevicePrefix(RealPath), DeviceHandler::GetDevicePrefix(Settings.Cheatcodespath)) == 0)
 		{
 			const char *CheatPath = strchr(Settings.Cheatcodespath, '/');
@@ -1374,7 +1376,10 @@ int GameBooter::BootNintendont(struct discHdr *gameHdr)
 		}
 		else
 		{
-			snprintf(nin_config->CheatPath, sizeof(nin_config->CheatPath), "/NINTemp.gct");
+			//snprintf(nin_config->CheatPath, sizeof(nin_config->CheatPath), "/apps/NINTemp.gct");
+
+			// Just load from /apps/codes/ as a fallback, to avoid writing temp files to device
+			snprintf(nin_config->CheatPath, sizeof(nin_config->CheatPath), "/apps/codes/%.6s.gct", (char *)gameHdr->id);
 		}
 
 		nin_config->Config |= NIN_CFG_CHEATS | NIN_CFG_CHEAT_PATH;

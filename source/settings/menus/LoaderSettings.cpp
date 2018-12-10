@@ -61,7 +61,7 @@ static const char * VideoModeText[] =
 	trNOOP( "Force NTSC" ),
 	trNOOP( "Region Patch" ),
 	trNOOP( "Force PAL480p" ),
-	trNOOP( "Force NTSC240p" ),
+	trNOOP( "Force NTSC480p" ),
 };
 
 static const char * VideoPatchDolText[] =
@@ -247,6 +247,7 @@ LoaderSettings::LoaderSettings()
 	Options->SetName(Idx++, "%s", tr( "Memory Card Emulation" ));
 	Options->SetName(Idx++, "%s", tr( "Force Widescreen" ));
 	Options->SetName(Idx++, "%s", tr( "LED Activity" ));
+	Options->SetName(Idx++, "%s", tr( "Message Board" ));
 	Options->SetName(Idx++, "%s", tr( "F-Zero AX" ));
 	Options->SetName(Idx++, "%s", tr( "Timer Fix" ));
 	Options->SetName(Idx++, "%s", tr( "D Buttons" ));
@@ -473,6 +474,9 @@ void LoaderSettings::SetOptionValues()
 
 	//! Settings: DEVO Activity LED
 	Options->SetValue(Idx++, "%s", tr(OnOffText[Settings.DEVOActivityLED]));
+
+	//! Settings: DEVO Wii Message Board support
+	Options->SetValue(Idx++, "%s", tr(OnOffText[Settings.DEVOPlayLog]));
 
 	//! Settings: DEVO F-Zero AX unlock patch
 	Options->SetValue(Idx++, "%s", tr(OnOffText[Settings.DEVOFZeroAX]));
@@ -898,6 +902,12 @@ int LoaderSettings::GetMenuInternal()
 	else if (ret == ++Idx)
 	{
 		if (++Settings.DEVOActivityLED >= MAX_ON_OFF) Settings.DEVOActivityLED = 0;
+	}
+
+	//! Settings: DEVO Play Log
+	else if (ret == ++Idx)
+	{
+		if (++Settings.DEVOPlayLog >= MAX_ON_OFF) Settings.DEVOPlayLog = 0;
 	}
 
 	//! Settings: DEVO F-Zero AX unlock patch

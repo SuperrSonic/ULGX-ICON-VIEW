@@ -58,6 +58,7 @@ typedef struct _GameCFG
 	short DEVOMCEmulation;
 	short DEVOWidescreen;
 	short DEVOActivityLED;
+	short DEVOPlayLog;
 	short DEVOFZeroAX;
 	short DEVOTimerFix;
 	short DEVODButtons;
@@ -118,6 +119,7 @@ typedef struct _GameCFG
 		this->DEVOMCEmulation = game.DEVOMCEmulation;
 		this->DEVOWidescreen = game.DEVOWidescreen;
 		this->DEVOActivityLED = game.DEVOActivityLED;
+		this->DEVOPlayLog = game.DEVOPlayLog;
 		this->DEVOFZeroAX = game.DEVOFZeroAX;
 		this->DEVOTimerFix = game.DEVOTimerFix;
 		this->DEVODButtons = game.DEVODButtons;

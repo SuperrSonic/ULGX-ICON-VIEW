@@ -203,6 +203,7 @@ void CSettings::SetDefault()
 	DEVOMCEmulation = OFF;
 	DEVOWidescreen = OFF;
 	DEVOActivityLED = ON;
+	DEVOPlayLog = ON;
 	DEVOFZeroAX = OFF;
 	DEVOTimerFix = OFF;
 	DEVODButtons = OFF;
@@ -459,6 +460,7 @@ bool CSettings::Save()
 	fprintf(file, "DEVOMCEmulation = %d\n", DEVOMCEmulation);
 	fprintf(file, "DEVOWidescreen = %d\n", DEVOWidescreen);
 	fprintf(file, "DEVOActivityLED = %d\n", DEVOActivityLED);
+	fprintf(file, "DEVOPlayLog = %d\n", DEVOPlayLog);
 	fprintf(file, "DEVOFZeroAX = %d\n", DEVOFZeroAX);
 	fprintf(file, "DEVOTimerFix = %d\n", DEVOTimerFix);
 	fprintf(file, "DEVODButtons = %d\n", DEVODButtons);
@@ -1025,6 +1027,11 @@ bool CSettings::SetSetting(char *name, char *value)
 	else if (strcmp(name, "DEVOActivityLED") == 0)
 	{
 		DEVOActivityLED = atoi(value);
+		return true;
+	}
+		else if (strcmp(name, "DEVOPlayLog") == 0)
+	{
+		DEVOPlayLog = atoi(value);
 		return true;
 	}
 	else if (strcmp(name, "DEVOFZeroAX") == 0)
